@@ -1,5 +1,6 @@
 package com.bai.controller;
 
+import com.bai.entity.User;
 import com.bai.service.UserService;
 import com.bai.utils.Result;
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,5 +43,21 @@ public class UserController {
     @GetMapping("/user/{id}")
     public Result getUserById(@PathVariable("id") int userId) {
         return Result.success(userService.getUserById(userId));
+    }
+
+    /**
+     * 更新用户信息
+     * @param user 用户实体类
+     * @return Result
+     */
+    @PutMapping("/user")
+    public Result updateMyUser(HttpServletRequest request, @RequestBody User user) {
+        Integer userId = (Integer) request.getAttribute("uid");
+        user.setUserId(userId);
+        if (userService.updateUser(user) > 0) {
+            return Result.success();
+        } else {
+            return Result.error("更新失败");
+        }
     }
 }

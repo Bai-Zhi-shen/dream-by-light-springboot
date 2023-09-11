@@ -69,4 +69,13 @@ public class UserService {
             return null;
         }
     }
+
+    /**
+     * 更新用户信息
+     * @param user 用户实体类
+     * @return int
+     */
+    public int updateUser(User user) {
+        return userMapper.updateById(user);
+    }
 }
